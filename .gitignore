@@ -4,7 +4,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 */*.txt
-
+2015/*.txt
 # C extensions
 *.so
 
