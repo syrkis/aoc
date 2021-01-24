@@ -13,7 +13,6 @@ def step(s, vis, n):
     if len(vis) == len(set(ds.keys())):
         return n
     t = sorted([(k, v) for k, v in ds[s].items() if k not in vis], key = lambda x: x[1])[::-1]
-    print(t)
     t = t[0][0]
     vis.add(t)
     return step(t, vis, n + ds[s][t])
