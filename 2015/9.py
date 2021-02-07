@@ -1,28 +1,36 @@
 from sys import stdin
-inp = [line.strip().split() for line in stdin.readlines()]
-ccs = {line[0]: {} for line in inp}; ccs['Straylight'] = {}
+from tqdm import tqdm
+from itertools import combinations
 
-for line in inp:
-    ccs[line[0]][line[2]] = int(line[-1])
-    ccs[line[2]][line[0]] = int(line[-1])
+data = stdin.readlines()
+data = [d.split() for d in data]
+places = set([d[0] for d in data])
+places.add(data[-1][2])
+D = {place: {} for place in places}
+routes = []
 
+for line in data:
+    D[line[0]][line[2]] = int(line[-1])
+    D[line[2]][line[0]] = int(line[-1])
+
+def router(dons, pots):
+    if len(pots) == 1:
+        dons.append(pots[0])
+        routes.append(dons)
+    for d in pots:
+        d_tmp = dons + [d]
+        p_tmp = [p for p in pots if p != d] 
+        router(d_tmp, p_tmp)
+
+dons = []
+pots = list(places)
+router(dons, pots)
 lens = []
 
-def route(s, done, l):
-    done.add(s)
-    if len(ccs) == len(done):
-        print(done)
-        print(set(ccs.keys()))
-        return l
-    ps = sorted(ccs[s], key=ccs[s].__getitem__)
-    ps = [p for p in ps if p not in done]
-    t = ps[-1]; d = ccs[s][t]
-    l += d
-    return route(t, done, l)
-
-for s in ccs.keys():
-    done = set(); l=0
-    l = route(s, done, l)
+for route in tqdm(routes):
+    l = 0
+    for i in range(len(route) - 1):
+        l += D[route[i]][route[i+1]]
     lens.append(l)
 
 print(max(lens))

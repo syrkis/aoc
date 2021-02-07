@@ -16,3 +16,4 @@ def las(dd):
 for i in range(50):
     dd = las(dd)
 print(len(dd))
+
