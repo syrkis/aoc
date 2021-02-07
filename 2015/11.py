@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 pp = 'hxbxwxba'
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 integ = {i: alpha[i] for i in range(len(alpha))}
