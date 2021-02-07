@@ -1,2 +1,2 @@
 # aoc
-Python solutions to Advent of Code
+solutions to Advent of Code
